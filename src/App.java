@@ -5,10 +5,13 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import visualizer.PaneOrganizer;
 
+
 /**
  * App class used to run the provided visualizer.
  * Initiates the program -- if you want to run and visualize your decision tree,
  * run this class!*/
+
+
 
 
 public class App extends Application {
