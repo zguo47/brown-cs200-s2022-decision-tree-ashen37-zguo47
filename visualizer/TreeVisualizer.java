@@ -5,7 +5,11 @@ import javafx.geometry.Pos;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import src.VisualNode;
-import visualizer.graph.*;
+import visualizer.graph.Edge;
+import visualizer.graph.Graph;
+import visualizer.graph.GraphAttribute;
+import visualizer.graph.GraphViz;
+import visualizer.graph.Node;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

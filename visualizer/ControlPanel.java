@@ -13,7 +13,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 import java.util.List;
@@ -171,7 +170,7 @@ class ControlPanel {
     private void setupTextAreaPane() {
         this.setupTextArea();
         this.textAreaPane = new HBox();
-        this.textAreaPane.setAlignment(javafx.geometry.Pos.CENTER);
+        this.textAreaPane.setAlignment(Pos.CENTER);
         this.textAreaPane.getChildren().add(this.textArea);
     }
 

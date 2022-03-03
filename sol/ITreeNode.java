@@ -2,6 +2,8 @@ package sol;
 
 import src.Row;
 
+import java.util.ArrayList;
+
 /**
  * Interface for nodes and leaves of tree.
  *
@@ -16,4 +18,6 @@ public interface ITreeNode {
      * @return the decision tree's decision
      */
     String getDecision(Row forDatum);
+
+    ArrayList<Edge> getLsOfEdge();
 }

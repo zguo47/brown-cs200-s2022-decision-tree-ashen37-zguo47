@@ -1,5 +1,8 @@
 package src;
 
+import org.w3c.dom.ls.LSException;
+import sol.Dataset;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +31,7 @@ public class Row {
         this.attributeAccesses = new ArrayList<>();
         this.setAttributeValues(valuesMap);
     }
+
 
     /**
      * Method to obtain all attributes of a dataset.
@@ -133,4 +137,6 @@ public class Row {
         return this.attributeValues.equals(row.attributeValues) &&
             this.displayName.equals(row.displayName);
     }
+
+
 }

@@ -1,16 +1,15 @@
 package visualizer;
 
-import java.io.File;
-import java.lang.reflect.InvocationTargetException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import sol.Dataset;
 import src.DecisionTreeTester;
 import visualizer.exceptions.BadFileTypeException;
+
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class DataLoader {
 

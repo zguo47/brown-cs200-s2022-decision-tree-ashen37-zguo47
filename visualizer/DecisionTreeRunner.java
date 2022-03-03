@@ -1,6 +1,5 @@
 package visualizer;
 
-import javafx.scene.control.TextArea;
 import sol.Dataset;
 import sol.TreeGenerator;
 import src.DecisionTreeTester;

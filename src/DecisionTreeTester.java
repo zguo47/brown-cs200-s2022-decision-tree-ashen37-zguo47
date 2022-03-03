@@ -1,5 +1,6 @@
 package src;
 
+import org.junit.Test;
 import sol.Dataset;
 import sol.TreeGenerator;
 
@@ -195,6 +196,7 @@ public class DecisionTreeTester<G extends ITreeGenerator<D>, D extends IDataset>
         }
         return new ArrayList<>(attributeSet);
     }
+
 
     public static void main(String[] args) {
         System.setProperty("org.graphstream.ui", "javafx");

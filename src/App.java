@@ -8,8 +8,9 @@ import visualizer.PaneOrganizer;
 /**
  * App class used to run the provided visualizer.
  * Initiates the program -- if you want to run and visualize your decision tree,
- * run this class!
- */
+ * run this class!*/
+
+
 public class App extends Application {
 
     @Override
