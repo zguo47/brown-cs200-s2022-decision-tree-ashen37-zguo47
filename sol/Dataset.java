@@ -16,8 +16,8 @@ public class Dataset implements IDataset {
 
 
     public Dataset(List<String> attributeList, List<Row> dataObjects){
-        this.rows = dataObjects;
         this.lsName = attributeList;
+        this.rows = dataObjects;
     }
 
     @Override
@@ -72,19 +72,19 @@ public class Dataset implements IDataset {
         String s = lsOfAttVal.get(0);
         for (int i = 1; i < lsOfAttVal.size(); i++){
             if (!lsOfAttVal.get(i).equals(s)){
-                return true;
+                return false;
             }else{
                 i++;
             }
         }
-        return false;
+        return true;
     }
 
 
-    public ArrayList<String> getNextAttributes(String prevAttributeName){
+    public ArrayList<String> getNextAttributes(String targetAtt){
         ArrayList<String> newLsOfAtt = new ArrayList<>();
         for (String s : this.lsName){
-            if (!s.equals(prevAttributeName) && this.isDistinctAttValues(s)){
+            if (!s.equals(targetAtt)){
                 newLsOfAtt.add(s);
             }
         }
@@ -132,6 +132,14 @@ public class Dataset implements IDataset {
 
     }
 
+    public String randomAttribute(String targetAttribute){
+        ArrayList<String> newLs = this.getNextAttributes(targetAttribute);
+        Random random = new Random();
+        int upperBound = newLs.size();
+        int randomNum = random.nextInt(upperBound);
+        return newLs.get(randomNum);
+    }
+
 
     public ITreeNode generateRecursion (String targetAttribute) {
 /*        ArrayList<Edge> nextEdges = new ArrayList<>();
@@ -144,16 +152,10 @@ public class Dataset implements IDataset {
 
 /*            List<String> lsOfAtt = this.getNextAttributes(null, targetAttribute);*/
 
+            String currentAttributeName = this.randomAttribute(targetAttribute);
 
-            Random random = new Random();
-            int upperBound = this.lsName.size();
-            int randomNum = random.nextInt(upperBound);
 
             ArrayList<String> usedAtt = new ArrayList<>();
-            usedAtt.add(targetAttribute);
-
-
-            String currentAttributeName = this.lsName.get(randomNum);
             usedAtt.add(currentAttributeName);
 
             System.out.println(" attribute " + currentAttributeName);
@@ -174,7 +176,8 @@ public class Dataset implements IDataset {
                 }*/
                 System.out.println(currentAttributeName + " with value " + v);
                 Dataset newData = new Dataset(this.removeAttLs(usedAtt), this.filterRows(v, currentAttributeName));
-                if (!newData.isDistinctAttValues(targetAttribute) || newData.lsName.isEmpty()){
+                boolean x = newData.lsName.isEmpty();
+                if (newData.isDistinctAttValues(targetAttribute) || x){
                     nextEdges.add(new Edge(v, new Leaf(newData.getDefaultVal(targetAttribute))));
                     System.out.println(" Leaf value: " + newData.getDefaultVal(targetAttribute));
                 }else {

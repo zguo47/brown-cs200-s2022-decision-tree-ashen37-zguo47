@@ -1,11 +1,14 @@
 package src;
 
+import sol.ITreeNode;
+
 /**
  * A class that generates a tree and looks up a decision.
  *
  * @param <D> the dataset implementation for the tree generator
  */
 public interface ITreeGenerator<D extends IDataset> {
+
 
     /**
      * Generates the tree for a given training dataset.
@@ -22,4 +25,6 @@ public interface ITreeGenerator<D extends IDataset> {
      * @return the decision of the row
      */
     public String getDecision(Row datum);
+
+    public void debugTree(ITreeNode tree, int level);
 }

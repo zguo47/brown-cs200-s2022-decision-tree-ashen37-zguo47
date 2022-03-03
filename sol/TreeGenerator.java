@@ -3,6 +3,7 @@ package sol;
 import src.*;
 import sol.ITreeNode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,13 +11,60 @@ import java.util.List;
  * used to generate a tree
  */
 public class TreeGenerator implements ITreeGenerator<Dataset> {
-    private ITreeNode tree;
+    public ITreeNode tree;
 
     @Override
     public void generateTree(Dataset trainingData, String targetAttribute) {
 
-        this.tree = trainingData.generateRecursion(targetAttribute);
+        String currentAttributeName = trainingData.randomAttribute(targetAttribute);
 
+
+        ArrayList<String> usedAtt = new ArrayList<>();
+        usedAtt.add(currentAttributeName);
+
+        System.out.println(" attribute " + currentAttributeName);
+
+        String defaultValue = trainingData.getDefaultVal(targetAttribute);
+
+        ArrayList<Edge> nextEdges = new ArrayList<>();
+        System.out.println(trainingData.getAttributeValList(currentAttributeName));
+        for (String v : trainingData.getAttributeValList(currentAttributeName)) {
+            /*                Dataset newData = this.filterDataset(v, currentAttributeName);*/
+            /*Dataset newData = newData1.filterDataset(v, targetAttribute);*/
+            /*System.out.println(newData.getNextAttributes(currentAttributeName, targetAttribute));*/
+/*                if (newData.getNextAttributes(currentAttributeName, targetAttribute).isEmpty()) {
+
+                    String decisionName = newData.getDataObjects().get(0).getAttributeValue(targetAttribute);
+                    nextEdges.add(new Edge(v, new Leaf(decisionName)));
+
+                }*/
+            System.out.println(currentAttributeName + " with value " + v);
+            Dataset newData = new Dataset(trainingData.removeAttLs(usedAtt), trainingData.filterRows(v, currentAttributeName));
+            boolean x = newData.getAttributeList().isEmpty();
+            if (newData.isDistinctAttValues(targetAttribute) || x){
+                nextEdges.add(new Edge(v, new Leaf(newData.getDefaultVal(targetAttribute))));
+                System.out.println(" Leaf value: " + newData.getDefaultVal(targetAttribute));
+            }else {
+                System.out.println(" new node: ");
+
+                nextEdges.add(new Edge(v, newData.generateRecursion(targetAttribute)));
+            }
+        }
+
+        this.tree = new Node(currentAttributeName, defaultValue, nextEdges);
+
+    }
+
+    public void debugTree(ITreeNode tree, int level){
+        System.out.println(level);
+        System.out.println(tree.getNodeAttName());
+        ArrayList<Edge> lsOfEdges = tree.getLsOfEdge();
+        if (lsOfEdges != null){
+            for (Edge e : lsOfEdges){
+                System.out.println(e.getEdgeValue());
+                debugTree(e.getNext(), level++);
+            }
+        }
     }
 
 

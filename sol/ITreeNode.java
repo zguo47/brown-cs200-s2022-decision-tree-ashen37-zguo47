@@ -20,4 +20,7 @@ public interface ITreeNode {
     String getDecision(Row forDatum);
 
     ArrayList<Edge> getLsOfEdge();
+
+
+    String getNodeAttName();
 }

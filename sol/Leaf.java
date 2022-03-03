@@ -26,4 +26,9 @@ public class Leaf implements ITreeNode {
     public ArrayList<Edge> getLsOfEdge(){
         return null;
     }
+
+
+    public String getNodeAttName() {
+        return this.decisionName;
+    }
 }
