@@ -26,5 +26,5 @@ public interface ITreeGenerator<D extends IDataset> {
      */
     public String getDecision(Row datum);
 
-    public void debugTree(ITreeNode tree, int level);
+/*    public void debugTree(ITreeNode tree, int level);*/
 }

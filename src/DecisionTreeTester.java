@@ -90,7 +90,7 @@ public class DecisionTreeTester<G extends ITreeGenerator<D>, D extends IDataset>
 
     public double getDecisionTreeAccuracy(D trainingData, D testingData, String targetAttribute) {
         this.generator.generateTree(trainingData, targetAttribute);
-        ((TreeGenerator)(this.generator)).debugTree(((TreeGenerator)(this.generator)).tree, 0);
+   /*     ((TreeGenerator)(this.generator)).debugTree(((TreeGenerator)(this.generator)).tree, 0);*/
 
         return this.getDecisionTreeAccuracy(testingData, targetAttribute);
     }
@@ -210,8 +210,8 @@ public class DecisionTreeTester<G extends ITreeGenerator<D>, D extends IDataset>
             double accuracy =
                 tester.getDecisionTreeAccuracy(trainingData, trainingData, IS_POISONOUS);
             System.out.println("Accuracy on training data: " + accuracy);
-            VisualNode tree = tester.regenerateTreeFromTrainingData(trainingData);/*
-            TreeVisualizer.visualizeTree(tree);*/
+            VisualNode tree = tester.regenerateTreeFromTrainingData(trainingData);
+            TreeVisualizer.visualizeTree(tree);
 
         } catch (InstantiationException | InvocationTargetException
             | NoSuchMethodException | IllegalAccessException e) {

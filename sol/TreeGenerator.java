@@ -16,6 +16,7 @@ public class TreeGenerator implements ITreeGenerator<Dataset> {
     @Override
     public void generateTree(Dataset trainingData, String targetAttribute) {
 
+/*
         String currentAttributeName = trainingData.randomAttribute(targetAttribute);
 
 
@@ -29,15 +30,23 @@ public class TreeGenerator implements ITreeGenerator<Dataset> {
         ArrayList<Edge> nextEdges = new ArrayList<>();
         System.out.println(trainingData.getAttributeValList(currentAttributeName));
         for (String v : trainingData.getAttributeValList(currentAttributeName)) {
-            /*                Dataset newData = this.filterDataset(v, currentAttributeName);*/
-            /*Dataset newData = newData1.filterDataset(v, targetAttribute);*/
-            /*System.out.println(newData.getNextAttributes(currentAttributeName, targetAttribute));*/
+            */
+/*                Dataset newData = this.filterDataset(v, currentAttributeName);*//*
+
+            */
+/*Dataset newData = newData1.filterDataset(v, targetAttribute);*//*
+
+            */
+/*System.out.println(newData.getNextAttributes(currentAttributeName, targetAttribute));*//*
+
+*/
 /*                if (newData.getNextAttributes(currentAttributeName, targetAttribute).isEmpty()) {
 
                     String decisionName = newData.getDataObjects().get(0).getAttributeValue(targetAttribute);
                     nextEdges.add(new Edge(v, new Leaf(decisionName)));
 
-                }*/
+                }*//*
+
             System.out.println(currentAttributeName + " with value " + v);
             Dataset newData = new Dataset(trainingData.removeAttLs(usedAtt), trainingData.filterRows(v, currentAttributeName));
             boolean x = newData.getAttributeList().isEmpty();
@@ -50,12 +59,13 @@ public class TreeGenerator implements ITreeGenerator<Dataset> {
                 nextEdges.add(new Edge(v, newData.generateRecursion(targetAttribute)));
             }
         }
+*/
 
-        this.tree = new Node(currentAttributeName, defaultValue, nextEdges);
+        this.tree = trainingData.generateRecursion(targetAttribute);
 
     }
 
-    public void debugTree(ITreeNode tree, int level){
+/*    public void debugTree(ITreeNode tree, int level){
         System.out.println(level);
         System.out.println(tree.getNodeAttName());
         ArrayList<Edge> lsOfEdges = tree.getLsOfEdge();
@@ -65,7 +75,7 @@ public class TreeGenerator implements ITreeGenerator<Dataset> {
                 debugTree(e.getNext(), level++);
             }
         }
-    }
+    }*/
 
 
 /*        if (!trainingData.getNextAttributes(trainingData.filterDataset(

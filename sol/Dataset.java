@@ -48,10 +48,12 @@ public class Dataset implements IDataset {
 
     public List<String> removeAttLs(ArrayList<String> attLs){
         ArrayList<String> newLs = new ArrayList<>();
-        for (String s : this.lsName){
-            if (!attLs.contains(s)){
-                newLs.add(s);
-            }
+        for (String s : this.lsName) {
+/*            if (!this.isDistinctAttValues(s)) {*/
+                if (!attLs.contains(s)) {
+                    newLs.add(s);
+                }
+/*            }*/
         }
         return newLs;
     }
@@ -133,107 +135,51 @@ public class Dataset implements IDataset {
     }
 
     public String randomAttribute(String targetAttribute){
-        ArrayList<String> newLs = this.getNextAttributes(targetAttribute);
         Random random = new Random();
-        int upperBound = newLs.size();
+        int upperBound = this.lsName.size();
         int randomNum = random.nextInt(upperBound);
-        return newLs.get(randomNum);
+        return this.lsName.get(randomNum);
     }
 
 
-    public ITreeNode generateRecursion (String targetAttribute) {
-/*        ArrayList<Edge> nextEdges = new ArrayList<>();
-
-        if (!this.isDistinctAttValues(targetAttribute) || this.getNextAttributes(targetAttribute).isEmpty()){
-
-            nextEdges.add(new Edge(, new Leaf(this.getDefaultVal(targetAttribute))));
-
-        }else {*/
-
-/*            List<String> lsOfAtt = this.getNextAttributes(null, targetAttribute);*/
-
-            String currentAttributeName = this.randomAttribute(targetAttribute);
+   public ITreeNode generateRecursion (String targetAttribute) {
+       String currentAttributeName = this.randomAttribute(targetAttribute);
 
 
-            ArrayList<String> usedAtt = new ArrayList<>();
-            usedAtt.add(currentAttributeName);
+       ArrayList<String> usedAtt = new ArrayList<>();
+       usedAtt.add(currentAttributeName);
+/*       usedAtt.add(targetAttribute);*/
 
-            System.out.println(" attribute " + currentAttributeName);
+       System.out.println(" attribute " + currentAttributeName);
 
-            String defaultValue = this.getDefaultVal(targetAttribute);
+       String defaultValue = this.getDefaultVal(targetAttribute);
 
-            ArrayList<Edge> nextEdges = new ArrayList<>();
-            System.out.println(this.getAttributeValList(currentAttributeName));
-            for (String v : this.getAttributeValList(currentAttributeName)) {
-/*                Dataset newData = this.filterDataset(v, currentAttributeName);*/
-                /*Dataset newData = newData1.filterDataset(v, targetAttribute);*/
-                /*System.out.println(newData.getNextAttributes(currentAttributeName, targetAttribute));*/
+       ArrayList<Edge> nextEdges = new ArrayList<>();
+       System.out.println(this.getAttributeValList(currentAttributeName));
+       for (String v : this.getAttributeValList(currentAttributeName)) {
+           /*                Dataset newData = this.filterDataset(v, currentAttributeName);*/
+           /*Dataset newData = newData1.filterDataset(v, targetAttribute);*/
+           /*System.out.println(newData.getNextAttributes(currentAttributeName, targetAttribute));*/
 /*                if (newData.getNextAttributes(currentAttributeName, targetAttribute).isEmpty()) {
 
                     String decisionName = newData.getDataObjects().get(0).getAttributeValue(targetAttribute);
                     nextEdges.add(new Edge(v, new Leaf(decisionName)));
 
                 }*/
-                System.out.println(currentAttributeName + " with value " + v);
-                Dataset newData = new Dataset(this.removeAttLs(usedAtt), this.filterRows(v, currentAttributeName));
-                boolean x = newData.lsName.isEmpty();
-                if (newData.isDistinctAttValues(targetAttribute) || x){
-                    nextEdges.add(new Edge(v, new Leaf(newData.getDefaultVal(targetAttribute))));
-                    System.out.println(" Leaf value: " + newData.getDefaultVal(targetAttribute));
-                }else {
-                    System.out.println(" new node: ");
+           System.out.println(currentAttributeName + " with value " + v);
+           Dataset newData = new Dataset(this.removeAttLs(usedAtt), this.filterRows(v, currentAttributeName));
+           boolean x = newData.getAttributeList().isEmpty();
+           if (newData.isDistinctAttValues(targetAttribute) || x) {
+               nextEdges.add(new Edge(v, new Leaf(newData.getDefaultVal(targetAttribute))));
+               System.out.println(" Leaf value: " + newData.getDefaultVal(targetAttribute));
+           } else {
+               System.out.println(" new node: ");
 
-                    nextEdges.add(new Edge(v, newData.generateRecursion(targetAttribute)));
-                }
-            }
-
-        return new Node(currentAttributeName, defaultValue, nextEdges);
-
-       /* if (this.isDistinctAttValues(firstAttribute) &&
-                !this.getNextAttributes(firstAttribute, targetAttribute).isEmpty()) {
-            ArrayList<String> tempAttVal = this.getAttributeValList(firstAttribute);
-            for (String v : tempAttVal) {
-                List<String> newLsOfAtt = this.getNextAttributes(firstAttribute, targetAttribute);
-
-                Random random = new Random();
-                int upperBound = newLsOfAtt.size();
-                int randomNum = random.nextInt(upperBound);
-
-                this.filterDataset(v);
-
-                String nextAttribute = newLsOfAtt.get(randomNum);
-
-                Node nextNode = new Node(nextAttribute,
-                        this.generateRecursion(nextAttribute, targetAttribute, nextEdges).getLsOfEdge());
-                Edge e = new Edge(v, nextNode);
-                nextEdges.add(e);
-                return this.generateRecursion(nextAttribute, targetAttribute, nextEdges);
-            }
-
-        } else if (this.isDistinctAttValues(firstAttribute) &&
-                this.getNextAttributes(firstAttribute, targetAttribute).isEmpty()){
-
-            ArrayList<String> tempAttVal = this.getAttributeValList(firstAttribute);
-            for (String v : tempAttVal) {
-                this.filterDataset(v);
-
-                Leaf decision = new Leaf(this.getDataObjects().get(0).getAttributeValue(targetAttribute));
-                Edge e = new Edge(v, decision);
-                nextEdges.add(e);
-            }
-            Node n = new Node(firstAttribute, nextEdges);
-            return n;
-
-        }else if (!this.isDistinctAttValues(firstAttribute)){
-            String v = this.getDataObjects().get(0).getAttributeValue(firstAttribute);
-            Leaf decision = new Leaf(this.getDataObjects().get(0).getAttributeValue(targetAttribute));
-            Edge e = new Edge(v, decision);
-            nextEdges.add(e);
-
-            Node n = new Node(firstAttribute, nextEdges);
-            return n;
-        }*/
-    }
+               nextEdges.add(new Edge(v, newData.generateRecursion(targetAttribute)));
+           }
+       }
+       return new Node(currentAttributeName, defaultValue, nextEdges);
+   }
 
 
 

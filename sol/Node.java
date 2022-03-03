@@ -15,7 +15,7 @@ public class Node implements ITreeNode {
     public Node(String name, String defaultValue, ArrayList<Edge> nextAttributes){
         this.attributeName = name;
         this.defaultValue = defaultValue;
-        this.lsOfEdge = new ArrayList<>();
+        this.lsOfEdge = nextAttributes;
     }
 
     public String getNodeAttName() {
